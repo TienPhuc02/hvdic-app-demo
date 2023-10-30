@@ -1,34 +1,63 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useState } from "react";
+const styles = StyleSheet.create({
+  stylesContentHeaderHomePage: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+});
 
 export default function Page() {
+  const [toggleDarkLight, setToggleDarkLight] = useState(true);
+  const handleClickIconDarkLight = () => {
+    setToggleDarkLight((toggleDarkLight) => !toggleDarkLight);
+  };
   return (
-    <View>
-      <View>
-        <Text className="text-red-400">Hello World</Text>
-        <Text>This is the first page of your app.</Text>
+    <View className="screen-home-page">
+      {toggleDarkLight === true ? (
+        <View className="background-image-home-page">
+          <ImageBackground
+            resizeMode="cover"
+            className="h-full w-full object-cover "
+            source={require("../assets/images/background-dark.jpg")}
+          />
+        </View>
+      ) : (
+        <View className="background-image-home-page">
+          <ImageBackground
+            resizeMode="cover"
+            className="h-full w-full object-cover "
+            source={require("../assets/images/background.jpg")}
+          />
+        </View>
+      )}
+      <View className="content-page absolute p-[10px]">
+        <View className="header-content">
+          <View className="flex justify-between items-center flex-row">
+            <Text className="text-[25px] text-[#c6e2ff]">Từ điển Hán Nôm</Text>
+            <TouchableOpacity
+              onPress={handleClickIconDarkLight}
+              className="icon-dark-light-header-content"
+            >
+              <MaterialCommunityIcons
+                name="theme-light-dark"
+                size={24}
+                color="white"
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
-  },
-});
